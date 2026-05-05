@@ -1,0 +1,71 @@
+.why-choose-us {
+  padding: 80px 5%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 60px;
+    font-weight: 700;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+  }
+
+  .stat-card {
+    text-align: center;
+    padding: 20px;
+
+    .stat-icon {
+      margin-bottom: 20px;
+
+      i {
+        font-size: 3rem;
+        opacity: 0.9;
+      }
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 60px 5%;
+
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
+    .stat-card {
+      .stat-number {
+        font-size: 2.5rem;
+      }
+
+      .stat-label {
+        font-size: 1rem;
+      }
+    }
+  }
+}

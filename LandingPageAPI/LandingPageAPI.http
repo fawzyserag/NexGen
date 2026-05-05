@@ -1,0 +1,6 @@
+@LandingPageAPI_HostAddress = http://localhost:5174
+
+GET {{LandingPageAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

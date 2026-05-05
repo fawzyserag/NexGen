@@ -1,0 +1,150 @@
+.contact {
+  padding: 80px 5%;
+  background: #f8f9fa;
+
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+  }
+
+  .contact-form {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+
+    .form-group {
+      margin-bottom: 25px;
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 600;
+        font-size: 1rem;
+
+        i {
+          margin-right: 8px;
+          color: #667eea;
+        }
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        font-family: inherit;
+
+        &:focus {
+          outline: none;
+          border-color: #667eea;
+        }
+
+        &.error {
+          border-color: #e74c3c;
+        }
+
+        &::placeholder {
+          color: #999;
+        }
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .error-message {
+        color: #e74c3c;
+        font-size: 0.9rem;
+        margin-top: 5px;
+      }
+    }
+
+    .submit-button {
+      width: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 15px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      i {
+        margin-right: 8px;
+      }
+
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+    }
+
+    .success-message {
+      margin-top: 20px;
+      padding: 15px;
+      background: #d4edda;
+      color: #155724;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: 500;
+
+      i {
+        margin-right: 8px;
+      }
+    }
+
+    .error-alert {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f8d7da;
+      color: #721c24;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: 500;
+
+      i {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 60px 5%;
+
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .contact-form {
+      padding: 30px 20px;
+    }
+  }
+}
