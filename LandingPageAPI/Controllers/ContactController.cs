@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using LandingPageAPI.Models;
+using LandingPageAPI.DTOs;
+using LandingPageAPI.Services;
 
 namespace LandingPageAPI.Controllers
 {
@@ -7,34 +8,54 @@ namespace LandingPageAPI.Controllers
     [Route("api/[controller]")]
     public class ContactController : ControllerBase
     {
+        private readonly IContactService _contactService;
         private readonly ILogger<ContactController> _logger;
 
-        public ContactController(ILogger<ContactController> logger)
+        public ContactController(
+            IContactService contactService,
+            ILogger<ContactController> logger)
         {
+            _contactService = contactService;
             _logger = logger;
         }
 
+        /// <summary>
+        /// Submit a contact form message
+        /// </summary>
+        /// <param name="messageDto">Contact message data</param>
+        /// <returns>Response indicating success or failure</returns>
         [HttpPost]
-        public IActionResult Submit([FromBody] ContactMessage message)
+        [ProducesResponseType(typeof(ContactResponseDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Submit([FromBody] ContactMessageDto messageDto)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(new { success = false, message = "Invalid data provided" });
+                _logger.LogWarning("Invalid contact form submission - ModelState errors");
+                return BadRequest(new ContactResponseDto
+                {
+                    Success = false,
+                    Message = "Invalid data provided. Please check all fields."
+                });
             }
 
-            if (string.IsNullOrWhiteSpace(message.Name) || 
-                string.IsNullOrWhiteSpace(message.Email) || 
-                string.IsNullOrWhiteSpace(message.Message))
+            var response = await _contactService.ProcessContactMessageAsync(messageDto);
+
+            if (!response.Success)
             {
-                return BadRequest(new { success = false, message = "All fields are required" });
+                return BadRequest(response);
             }
 
-            _logger.LogInformation($"Contact form submitted - Name: {message.Name}, Email: {message.Email}");
+            return Ok(response);
+        }
 
-            return Ok(new { 
-                success = true, 
-                message = "Thank you for contacting us! We'll get back to you soon." 
-            });
+        /// <summary>
+        /// Health check endpoint
+        /// </summary>
+        [HttpGet("health")]
+        public IActionResult Health()
+        {
+            return Ok(new { status = "healthy", timestamp = DateTime.UtcNow });
         }
     }
 }

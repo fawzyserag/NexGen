@@ -1,6 +1,11 @@
+using LandingPageAPI.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+// Register Services
+builder.Services.AddScoped<IContactService, ContactService>();
 
 builder.Services.AddCors(options =>
 {
