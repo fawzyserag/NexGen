@@ -17,7 +17,6 @@ namespace LandingPageAPI.Services
         {
             try
             {
-                // Validate the message
                 if (!ValidateContactMessage(messageDto))
                 {
                     return new ContactResponseDto
@@ -27,10 +26,8 @@ namespace LandingPageAPI.Services
                     };
                 }
 
-                // Map DTO to Model
                 var contactMessage = ContactMessageMapper.ToModel(messageDto);
 
-                // Log the contact submission
                 _logger.LogInformation(
                     "Contact form submitted - Name: {Name}, Email: {Email}, Message Length: {Length}",
                     contactMessage.Name,
@@ -38,14 +35,8 @@ namespace LandingPageAPI.Services
                     contactMessage.Message.Length
                 );
 
-                // Here you would typically:
-                // 1. Save to database
-                // 2. Send email notification
-                // 3. Add to queue for processing
-                // For now, we'll just simulate async operation
-                await Task.Delay(100); // Simulate async work
+                await Task.Delay(100); 
 
-                // Return success response
                 return new ContactResponseDto
                 {
                     Success = true,
@@ -79,7 +70,6 @@ namespace LandingPageAPI.Services
             if (string.IsNullOrWhiteSpace(messageDto.Message))
                 return false;
 
-            // Additional validation
             if (messageDto.Name.Length < 2 || messageDto.Name.Length > 100)
                 return false;
 

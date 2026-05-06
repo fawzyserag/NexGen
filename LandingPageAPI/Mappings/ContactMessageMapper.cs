@@ -5,9 +5,6 @@ namespace LandingPageAPI.Mappings
 {
     public static class ContactMessageMapper
     {
-        /// <summary>
-        /// Maps ContactMessageDto to ContactMessage model
-        /// </summary>
         public static ContactMessage ToModel(ContactMessageDto dto)
         {
             if (dto == null)
@@ -21,9 +18,6 @@ namespace LandingPageAPI.Mappings
             };
         }
 
-        /// <summary>
-        /// Maps ContactMessage model to ContactMessageDto
-        /// </summary>
         public static ContactMessageDto ToDto(ContactMessage model)
         {
             if (model == null)
@@ -37,9 +31,6 @@ namespace LandingPageAPI.Mappings
             };
         }
 
-        /// <summary>
-        /// Maps a list of ContactMessage models to DTOs
-        /// </summary>
         public static List<ContactMessageDto> ToDtoList(List<ContactMessage> models)
         {
             if (models == null)

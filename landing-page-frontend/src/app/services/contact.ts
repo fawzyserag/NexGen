@@ -7,7 +7,7 @@ import { ContactMessage } from '../models/contact.model';
   providedIn: 'root',
 })
 export class ContactService {
-  private apiUrl = 'http://localhost:5000/api/contact';
+  private apiUrl = 'https://nexgen-production-5cc0.up.railway.app/api/contact';
 
   constructor(private http: HttpClient) { }
 
