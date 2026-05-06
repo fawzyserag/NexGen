@@ -60,7 +60,8 @@
         }
 
         &.error {
-          border-color: #e74c3c;
+          border-color: #dc3545;
+          background-color: #fff5f5;
         }
 
         &::placeholder {
@@ -73,10 +74,36 @@
         min-height: 120px;
       }
 
+      // Character Counter
+      .char-counter {
+        text-align: right;
+        font-size: 0.85rem;
+        color: #666;
+        margin-top: 5px;
+        font-weight: 500;
+
+        &.approaching-limit {
+          color: #dc3545;
+          font-weight: 600;
+        }
+      }
+
+      // Error Messages Container
+      .error-messages {
+        margin-top: 8px;
+      }
+
       .error-message {
-        color: #e74c3c;
+        color: #dc3545;
         font-size: 0.9rem;
         margin-top: 5px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        i {
+          font-size: 0.85rem;
+        }
       }
     }
 
@@ -102,8 +129,19 @@
       }
 
       &:disabled {
-        opacity: 0.7;
+        opacity: 0.6;
         cursor: not-allowed;
+        transform: none;
+      }
+
+      &.disabled {
+        background: #ccc;
+        cursor: not-allowed;
+
+        &:hover {
+          transform: none;
+          box-shadow: none;
+        }
       }
     }
 
@@ -112,12 +150,18 @@
       padding: 15px;
       background: #d4edda;
       color: #155724;
+      border: 1px solid #c3e6cb;
       border-radius: 5px;
       text-align: center;
       font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      animation: slideIn 0.3s ease;
 
       i {
-        margin-right: 8px;
+        font-size: 1.2rem;
       }
     }
 
@@ -126,12 +170,18 @@
       padding: 15px;
       background: #f8d7da;
       color: #721c24;
+      border: 1px solid #f5c6cb;
       border-radius: 5px;
       text-align: center;
       font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      animation: slideIn 0.3s ease;
 
       i {
-        margin-right: 8px;
+        font-size: 1.2rem;
       }
     }
   }
@@ -146,5 +196,17 @@
     .contact-form {
       padding: 30px 20px;
     }
+  }
+}
+
+// Animation for success/error messages
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

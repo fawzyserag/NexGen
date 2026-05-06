@@ -4,6 +4,8 @@
     <p class="section-subtitle">Have a project in mind? Let's discuss how we can help you achieve your goals.</p>
 
     <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+
+      <!-- Name Field -->
       <div class="form-group">
         <label for="name">
           <i class="fas fa-user"></i> Full Name
@@ -13,12 +15,23 @@
           id="name"
           formControlName="name"
           placeholder="Enter your full name"
-          [class.error]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
-        <div class="error-message" *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
-          Name is required
+          [class.error]="shouldShowError('name')">
+
+        <!-- Name Error Messages -->
+        <div class="error-messages" *ngIf="shouldShowError('name')">
+          <div class="error-message" *ngIf="name?.errors?.['required']">
+            <i class="fas fa-exclamation-circle"></i> Name is required
+          </div>
+          <div class="error-message" *ngIf="name?.errors?.['minlength']">
+            <i class="fas fa-exclamation-circle"></i> Minimum 2 characters
+          </div>
+          <div class="error-message" *ngIf="name?.errors?.['maxlength']">
+            <i class="fas fa-exclamation-circle"></i> Maximum 100 characters
+          </div>
         </div>
       </div>
 
+      <!-- Email Field -->
       <div class="form-group">
         <label for="email">
           <i class="fas fa-envelope"></i> Email Address
@@ -28,13 +41,23 @@
           id="email"
           formControlName="email"
           placeholder="Enter your email address"
-          [class.error]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
-        <div class="error-message" *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
-          <span *ngIf="contactForm.get('email')?.errors?.['required']">Email is required</span>
-          <span *ngIf="contactForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+          [class.error]="shouldShowError('email')">
+
+        <!-- Email Error Messages -->
+        <div class="error-messages" *ngIf="shouldShowError('email')">
+          <div class="error-message" *ngIf="email?.errors?.['required']">
+            <i class="fas fa-exclamation-circle"></i> Email is required
+          </div>
+          <div class="error-message" *ngIf="email?.errors?.['email']">
+            <i class="fas fa-exclamation-circle"></i> Invalid email format
+          </div>
+          <div class="error-message" *ngIf="email?.errors?.['maxlength']">
+            <i class="fas fa-exclamation-circle"></i> Maximum 100 characters
+          </div>
         </div>
       </div>
 
+      <!-- Message Field -->
       <div class="form-group">
         <label for="message">
           <i class="fas fa-comment-dots"></i> Message
@@ -44,13 +67,33 @@
           formControlName="message"
           rows="5"
           placeholder="Tell us about your project..."
-          [class.error]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"></textarea>
-        <div class="error-message" *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched">
-          Message is required
+          [class.error]="shouldShowError('message')"></textarea>
+
+        <!-- Character Counter -->
+        <div class="char-counter" [class.approaching-limit]="isApproachingLimit()">
+          {{ getMessageCharCount() }} / 1000 characters
+        </div>
+
+        <!-- Message Error Messages -->
+        <div class="error-messages" *ngIf="shouldShowError('message')">
+          <div class="error-message" *ngIf="message?.errors?.['required']">
+            <i class="fas fa-exclamation-circle"></i> Message is required
+          </div>
+          <div class="error-message" *ngIf="message?.errors?.['minlength']">
+            <i class="fas fa-exclamation-circle"></i> Minimum 10 characters
+          </div>
+          <div class="error-message" *ngIf="message?.errors?.['maxlength']">
+            <i class="fas fa-exclamation-circle"></i> Maximum 1000 characters
+          </div>
         </div>
       </div>
 
-      <button type="submit" class="submit-button" [disabled]="isSubmitting">
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="submit-button"
+        [disabled]="isSubmitting || contactForm.invalid"
+        [class.disabled]="contactForm.invalid">
         <span *ngIf="!isSubmitting">
           <i class="fas fa-paper-plane"></i> Send Message
         </span>
@@ -59,10 +102,12 @@
         </span>
       </button>
 
+      <!-- Success Message -->
       <div class="success-message" *ngIf="successMessage">
         <i class="fas fa-check-circle"></i> {{ successMessage }}
       </div>
 
+      <!-- Error Message -->
       <div class="error-alert" *ngIf="errorMessage">
         <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
       </div>

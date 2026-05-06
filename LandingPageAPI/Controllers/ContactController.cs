@@ -19,11 +19,6 @@ namespace LandingPageAPI.Controllers
             _logger = logger;
         }
 
-        /// <summary>
-        /// Submit a contact form message
-        /// </summary>
-        /// <param name="messageDto">Contact message data</param>
-        /// <returns>Response indicating success or failure</returns>
         [HttpPost]
         [ProducesResponseType(typeof(ContactResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -49,9 +44,6 @@ namespace LandingPageAPI.Controllers
             return Ok(response);
         }
 
-        /// <summary>
-        /// Health check endpoint
-        /// </summary>
         [HttpGet("health")]
         public IActionResult Health()
         {
